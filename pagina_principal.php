@@ -63,7 +63,8 @@ function addUser($nombre_usuario,$user,$contra){
 								<h1>Sistemas Operativos</h1>
 								<p>Mynor Adan Lopez Izaguirre 5190-05-407<br />
 								Mynor David Hernández Cancinos 5190-03-3604<br />
-								Denis Alexander Hernandez Arrecis 5190-22-11668</p>
+								Denis Alexander Hernandez Arrecis 5190-22-11668<br />
+								<a href="space/main_view.php">Ir a otra página</a></p>
 							</div>
 						</div>
 						<nav>

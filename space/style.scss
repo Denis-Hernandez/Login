@@ -1,0 +1,196 @@
+$table-height: calc(100vh - 130px);
+$table-width: calc(100vw - 30px);
+$panel-height: calc(100vh - 190px);
+$primary-color: #0a1931;
+$secondary-color: #185adb;
+$tertiary-color: #ffc947;
+$quaternary-color: #efefef;
+$font-style: "Orbitron";
+
+$planet-orbit: 60px, 80px, 100px, 120px, 180px, 220px, 260px, 300px, 340px;
+$planet-names: "mercury", "venus", "earth", "mars", "jupiter", "saturn",
+  "uranus", "neptune", "pluto";
+$planet-sizes: 5px, 6px, 6px, 5px, 18px, 16px, 14px, 11px, 2px;
+$planet-speed: 2.4s, 6.1s, 10s, 18.8s, 70s, 147s, 420s, 823s, 1240s;
+@mixin style($mod, $radius) {
+  width: $mod * 2;
+  height: $mod * 2;
+  border-radius: $radius;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+}
+
+body {
+  margin: 0px;
+  background-color: $secondary-color;
+}
+.header {
+  background-color: $primary-color;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  color: $tertiary-color;
+  font-family: $font-style;
+  padding-left: 15px;
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 100px);
+  align-items: center;
+  flex-direction: column;
+}
+.solar-system {
+  background-color: $primary-color;
+  display: flex;
+  width: $table-width;
+  height: $table-height;
+  margin: 15px;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 30px;
+}
+.solar-system__panel {
+  height: $panel-height;
+  width: 150px;
+  background-color: $primary-color;
+  border-radius: 30px;
+  border: $secondary-color 1px solid;
+  margin: 15px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 15px;
+}
+
+.panel__button {
+  height: -webkit-fill-available;
+  margin: 0;
+  border: $secondary-color 1px solid;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: $primary-color;
+  color: $tertiary-color;
+  font-family: $font-style;
+  font-size: 15px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.panel__button:hover,
+.panel__checkbox:checked + label {
+  background-color: $tertiary-color;
+  color: $primary-color;
+}
+
+.panel__checkbox {
+  display: none;
+}
+
+.panel__img {
+  height: 1.5em;
+  margin-right: 10px;
+}
+
+.solar-system__central-panel {
+  height: $panel-height;
+  width: 200px;
+  background-color: $primary-color;
+  border-radius: 30px;
+  border: $secondary-color 1px solid;
+  margin: 15px 15px 15px 0px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 15px;
+}
+
+.solar-system__central-panel__text {
+  font-family: $font-style;
+  color: $tertiary-color;
+  margin: 0;
+}
+
+.solar-system__sun {
+  @include style(20px, none);
+  background-color: $tertiary-color;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 4px $tertiary-color;
+  z-index: 10;
+}
+@for $var from 1 to 10 {
+  .solar-system__orbit-#{nth($planet-names,$var)} {
+    @include style(nth($planet-orbit, $var), 50%);
+    border: 2px #185adb solid;
+    transform-style: preserve-3d;
+    .solar-system__planet-#{nth($planet-names,$var)} {
+      @include style(nth($planet-sizes, $var), none);
+      background: none;
+      animation: move-#{nth($planet-names, $var)} linear infinite;
+      animation-duration: #{nth($planet-speed, $var)};
+    }
+    transform: rotateZ(90deg) rotateY(-70deg);
+  }
+}
+
+@for $var2 from 1 to 10 {
+  @keyframes move-#{nth($planet-names,$var2)} {
+    from {
+      transform: rotateZ(0) translateX(#{nth($planet-orbit, $var2)}) rotateZ(0)
+        rotateY(70deg);
+    }
+    to {
+      transform: rotateZ(360deg) translateX(#{nth($planet-orbit, $var2)})
+        rotateZ(-360deg) rotateY(70deg);
+    }
+  }
+}
+
+.footer {
+  background: $primary-color;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+}
+
+.footer__display {
+  display: flex;
+  cursor: pointer;
+}
+.footer__display:hover > h3 {
+  text-decoration: underline 2px;
+}
+
+.footer__subtitle {
+  font-family: $font-style;
+  color: $tertiary-color;
+  padding-left: 15px;
+  margin: 0;
+}
+
+.footer__material-icon {
+  font-family: "Material Icons";
+  color: $tertiary-color;
+  font-size: 30px;
+}
+
+.footer__check {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+}
